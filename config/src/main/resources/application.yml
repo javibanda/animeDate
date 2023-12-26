@@ -8,5 +8,5 @@ spring:
     config:
       server:
         git:
-          uri: http://config.url
+          uri: https://github.com/javibanda/animeDate.git
           clone-on-start: true

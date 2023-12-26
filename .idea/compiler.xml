@@ -8,12 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config" />
         <module name="discovery" />
+        <module name="authentication" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="animeDate" options="" />
+      <module name="authentication" options="-parameters" />
       <module name="config" options="-parameters" />
       <module name="discovery" options="-parameters" />
     </option>
