@@ -12,6 +12,7 @@
         <module>discovery</module>
         <module>config</module>
         <module>authentication</module>
+        <module>user</module>
     </modules>
 
     <properties>
