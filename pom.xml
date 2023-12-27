@@ -13,6 +13,7 @@
         <module>config</module>
         <module>authentication</module>
         <module>user</module>
+        <module>Gateway</module>
     </modules>
 
     <properties>
