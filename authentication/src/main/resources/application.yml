@@ -7,4 +7,4 @@ spring:
 
 jwt:
   secret: MiAVzqUXy5Tfr1kVIGpPMiAVzqUXy5Tfr1kVIGpP
-  expiration: 86400
+  expiration: 300
