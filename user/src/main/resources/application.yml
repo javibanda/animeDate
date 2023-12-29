@@ -2,5 +2,17 @@ server:
   port: 9002
 
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: javibanda
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
   application:
     name: user-service

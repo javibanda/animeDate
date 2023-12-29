@@ -1,19 +1,28 @@
 package org.javibanda.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javibanda.model.dto.UserDTO;
+import org.javibanda.model.entity.User;
+import org.javibanda.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.UUID;
+
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
-    public UserDTO save(UserDTO userDTO){
-        String userId = String.valueOf(new Date().getTime());
-        userDTO.setId(userId);
-        userDTO.setRole("USER");
-        return userDTO;
+    private final UserRepository userRepository;
+
+    public User save(User user){
+        if (userExist(user)){
+            return null;
+        }
+        user.setId(UUID.randomUUID());
+        return userRepository.save(user);
+    }
+
+    private boolean userExist(User user){
+        return userRepository.countByEmailOrUserName(user.getEmail(), user.getUserName()) != 0;
     }
 }

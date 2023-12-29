@@ -1,7 +1,7 @@
 package org.javibanda.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.javibanda.model.dto.UserDTO;
+import org.javibanda.model.entity.User;
 import org.javibanda.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +14,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDTO> save(@RequestBody UserDTO userVO) {
-        return ResponseEntity.ok(userService.save(userVO));
+    public ResponseEntity<User> save(@RequestBody User user) {
+        return ResponseEntity.ok(userService.save(user));
     }
 
     @GetMapping("/secured")

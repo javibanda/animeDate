@@ -19,10 +19,11 @@ public class AuthService {
     public AuthResponse register(AuthRequest request) {
         request.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
         UserDTO registeredUser = restTemplate.postForObject("http://user-service/users", request, UserDTO.class);
-
-        assert registeredUser != null;
-        String accessToken = jwtUtil.generate(registeredUser.getId(), registeredUser.getRole(), "ACCESS");
-        String refreshToken = jwtUtil.generate(registeredUser.getId(), registeredUser.getRole(), "REFRESH");
+        if (registeredUser == null){
+            return null;
+        }
+        String accessToken = jwtUtil.generate(registeredUser.getId().toString(), registeredUser.getRole(), "ACCESS");
+        String refreshToken = jwtUtil.generate(registeredUser.getId().toString(), registeredUser.getRole(), "REFRESH");
 
         return new AuthResponse(accessToken, refreshToken);
     }

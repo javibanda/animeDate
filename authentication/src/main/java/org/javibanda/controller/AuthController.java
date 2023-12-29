@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.javibanda.model.dto.AuthRequest;
 import org.javibanda.model.dto.AuthResponse;
 import org.javibanda.service.AuthService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,11 @@ public class AuthController {
 
     @PostMapping(value = "/register")
     public ResponseEntity<AuthResponse> register(@RequestBody AuthRequest request) {
-        return ResponseEntity.ok(authService.register(request));
+        AuthResponse authResponse = authService.register(request);
+        if (authResponse != null){
+            return ResponseEntity.ok(authService.register(request));
+        }else {
+            return ResponseEntity.status(HttpStatus.FOUND).build();
+        }
     }
 }
