@@ -18,6 +18,11 @@ public class UserController {
         return ResponseEntity.ok(userService.save(user));
     }
 
+    @GetMapping
+    public ResponseEntity<User> get(@RequestBody User user){
+        return ResponseEntity.ok(userService.get(user));
+    }
+
     @GetMapping("/secured")
     public ResponseEntity<String> securedEndpoint() {
         return ResponseEntity.ok("Hello, from secured endpoint!");

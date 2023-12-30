@@ -22,6 +22,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User get(User user){
+        return userRepository.getUserByEmailAndPassword(user.getEmail(), user.getPassword());
+    }
+
     private boolean userExist(User user){
         return userRepository.countByEmailOrUserName(user.getEmail(), user.getUserName()) != 0;
     }
