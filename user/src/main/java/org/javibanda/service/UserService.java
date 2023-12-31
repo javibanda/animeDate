@@ -23,7 +23,7 @@ public class UserService {
     }
 
     public User get(User user){
-        return userRepository.getUserByEmailAndPassword(user.getEmail(), user.getPassword());
+        return userRepository.getUserByEmail(user.getEmail());
     }
 
     private boolean userExist(User user){

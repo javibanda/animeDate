@@ -18,7 +18,7 @@ public class UserController {
         return ResponseEntity.ok(userService.save(user));
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<User> get(@RequestBody User user){
         return ResponseEntity.ok(userService.get(user));
     }

@@ -1,6 +1,13 @@
 server:
   port: 9001
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 45000
+        readTimeout: 45000
+
 spring:
   application:
     name: auth-service

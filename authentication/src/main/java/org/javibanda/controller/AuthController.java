@@ -28,4 +28,14 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.FOUND).build();
         }
     }
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request){
+        AuthResponse authResponse = authService.login(request);
+        if (authResponse != null){
+            return ResponseEntity.ok(authService.register(request));
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
