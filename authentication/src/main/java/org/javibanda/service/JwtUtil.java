@@ -18,7 +18,6 @@ public class JwtUtil {
     private String secret;
     @Value("${jwt.expiration}")
     private String expiration;
-
     private Key key;
 
     @PostConstruct
@@ -27,11 +26,7 @@ public class JwtUtil {
     }
 
     public Claims getClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token).getBody();
-    }
-
-    public Date getExpirationDate(String token) {
-        return getClaims(token).getExpiration();
+        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
 
     public String generate(String userId, String role, String tokenType) {
@@ -50,10 +45,6 @@ public class JwtUtil {
                 .setExpiration(exp)
                 .signWith(key)
                 .compact();
-    }
-
-    private boolean isExpired(String token) {
-        return getExpirationDate(token).before(new Date());
     }
 
 

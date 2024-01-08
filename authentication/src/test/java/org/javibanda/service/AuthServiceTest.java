@@ -28,7 +28,7 @@ public class AuthServiceTest {
 
     @Test
     public void register() {
-        String pass = "contraseña";
+        String pass = "password";
         String hashed_password = BCrypt.hashpw(pass, BCrypt.gensalt());
 
         when(jwtUtil.generate("", "", "")).thenReturn("a");
@@ -39,7 +39,7 @@ public class AuthServiceTest {
     }
 
     private AuthRequest authRequest(String pass) {
-        return new AuthRequest("as", "sf", pass, "rol");
+        return new AuthRequest("as", "sf", pass);
     }
 
     private UserDTO userDTO(String codedPass) {
