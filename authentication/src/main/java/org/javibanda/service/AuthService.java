@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.javibanda.feign.UserFeign;
 import org.javibanda.model.dto.AuthRequest;
 import org.javibanda.model.dto.AuthResponse;
-import org.javibanda.model.dto.UserDTO;
+import org.javibanda.model.dto.User;
 import org.javibanda.model.enums.AuthOperation;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -21,24 +21,24 @@ public class AuthService {
 
     public AuthResponse register(AuthRequest request) {
         request.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
-        UserDTO registeredUser = restTemplate.postForObject("http://user-service/users", request, UserDTO.class);
+        User registeredUser = restTemplate.postForObject("http://user-service/users", request, User.class);
         return getAuthResponse(registeredUser, request, AuthOperation.REGISTER);
     }
 
     public AuthResponse login(AuthRequest request){
-        UserDTO userDTO = userFeign.getUser(request.getEmail());
-        return getAuthResponse(userDTO, request, AuthOperation.LOGIN);
+        User user = userFeign.getUser(request.getEmail());
+        return getAuthResponse(user, request, AuthOperation.LOGIN);
     }
 
-    public AuthResponse getAuthResponse(UserDTO userDTO, AuthRequest request, AuthOperation authOperation){
-        if (userDTO == null){
+    public AuthResponse getAuthResponse(User user, AuthRequest request, AuthOperation authOperation){
+        if (user == null){
             return null;
         }
-        if (!checkPassword(request.getPassword(), userDTO.getPassword(), authOperation)){
+        if (!checkPassword(request.getPassword(), user.getPassword(), authOperation)){
             return null;
         }
-        String accessToken = jwtUtil.generate(userDTO.getId().toString(), userDTO.getRole(), "ACCESS");
-        String refreshToken = jwtUtil.generate(userDTO.getId().toString(), userDTO.getRole(), "REFRESH");
+        String accessToken = jwtUtil.generate(user.getId().toString(), user.getRole(), "ACCESS");
+        String refreshToken = jwtUtil.generate(user.getId().toString(), user.getRole(), "REFRESH");
 
         return new AuthResponse(accessToken, refreshToken);
     }

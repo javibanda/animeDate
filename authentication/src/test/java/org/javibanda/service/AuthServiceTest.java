@@ -2,7 +2,7 @@ package org.javibanda.service;
 
 import org.javibanda.model.dto.AuthRequest;
 import org.javibanda.model.dto.AuthResponse;
-import org.javibanda.model.dto.UserDTO;
+import org.javibanda.model.dto.User;
 import org.javibanda.model.enums.AuthOperation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +42,7 @@ public class AuthServiceTest {
         return new AuthRequest("as", "sf", pass);
     }
 
-    private UserDTO userDTO(String codedPass) {
-        return new UserDTO(UUID.randomUUID(), "d", "sf", codedPass, "rol");
+    private User userDTO(String codedPass) {
+        return new User(UUID.randomUUID(), "d", "sf", codedPass, "rol");
     }
 }
