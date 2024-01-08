@@ -23,7 +23,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> register(@RequestBody AuthRequest request) {
         AuthResponse authResponse = authService.register(request);
         if (authResponse != null){
-            return ResponseEntity.ok(authService.register(request));
+            return ResponseEntity.ok(authResponse);
         }else {
             return ResponseEntity.status(HttpStatus.FOUND).build();
         }
@@ -33,7 +33,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request){
         AuthResponse authResponse = authService.login(request);
         if (authResponse != null){
-            return ResponseEntity.ok(authService.register(request));
+            return ResponseEntity.ok(authResponse);
         }else {
             return ResponseEntity.notFound().build();
         }

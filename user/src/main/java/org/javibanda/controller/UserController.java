@@ -19,8 +19,8 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<User> get(@RequestBody User user){
-        return ResponseEntity.ok(userService.get(user));
+    public ResponseEntity<User> get(@RequestParam String email){
+        return ResponseEntity.ok(userService.get(email));
     }
 
     @GetMapping("/secured")

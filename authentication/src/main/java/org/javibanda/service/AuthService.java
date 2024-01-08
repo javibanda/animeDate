@@ -5,6 +5,7 @@ import org.javibanda.feign.UserFeign;
 import org.javibanda.model.dto.AuthRequest;
 import org.javibanda.model.dto.AuthResponse;
 import org.javibanda.model.dto.UserDTO;
+import org.javibanda.model.enums.AuthOperation;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -21,19 +22,19 @@ public class AuthService {
     public AuthResponse register(AuthRequest request) {
         request.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
         UserDTO registeredUser = restTemplate.postForObject("http://user-service/users", request, UserDTO.class);
-        return getAuthResponseRegister(registeredUser);
+        return getAuthResponse(registeredUser, request, AuthOperation.REGISTER);
     }
 
     public AuthResponse login(AuthRequest request){
-        UserDTO userDTO = userFeign.getUser(request);
-        return getAuthResponseLogin(userDTO, request);
+        UserDTO userDTO = userFeign.getUser(request.getEmail());
+        return getAuthResponse(userDTO, request, AuthOperation.LOGIN);
     }
 
-    private AuthResponse getAuthResponseLogin(UserDTO userDTO, AuthRequest request){
+    public AuthResponse getAuthResponse(UserDTO userDTO, AuthRequest request, AuthOperation authOperation){
         if (userDTO == null){
             return null;
         }
-        if (BCrypt.checkpw(request.getPassword(), userDTO.getPassword())){
+        if (!checkPassword(request.getPassword(), userDTO.getPassword(), authOperation)){
             return null;
         }
         String accessToken = jwtUtil.generate(userDTO.getId().toString(), userDTO.getRole(), "ACCESS");
@@ -42,14 +43,11 @@ public class AuthService {
         return new AuthResponse(accessToken, refreshToken);
     }
 
-    private AuthResponse getAuthResponseRegister(UserDTO userDTO){
-        if (userDTO == null){
-            return null;
+    private boolean checkPassword(String typedPass, String encodePass, AuthOperation authOperation){
+        if (authOperation == AuthOperation.REGISTER){
+            return true;
+        }else {
+            return BCrypt.checkpw(typedPass, encodePass);
         }
-
-        String accessToken = jwtUtil.generate(userDTO.getId().toString(), userDTO.getRole(), "ACCESS");
-        String refreshToken = jwtUtil.generate(userDTO.getId().toString(), userDTO.getRole(), "REFRESH");
-
-        return new AuthResponse(accessToken, refreshToken);
     }
 }
