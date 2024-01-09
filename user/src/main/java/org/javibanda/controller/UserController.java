@@ -1,6 +1,7 @@
 package org.javibanda.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.javibanda.model.entity.User;
 import org.javibanda.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,10 @@ public class UserController {
     }
 
     @GetMapping("/secured")
-    public ResponseEntity<String> securedEndpoint() {
-        return ResponseEntity.ok("Hello, from secured endpoint!");
+    public ResponseEntity<User> securedEndpoint(@RequestHeader("Authorization") String token) {
+        val user = userService.getUserFromToken(token);
+        return ResponseEntity.ok(user);
     }
+
+
 }

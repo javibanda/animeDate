@@ -1,7 +1,9 @@
 package org.javibanda.service;
 
 import lombok.RequiredArgsConstructor;
-import org.javibanda.model.Role;
+import org.javibanda.feign.ClaimFeign;
+import org.javibanda.model.dto.ClaimDTO;
+import org.javibanda.model.enums.Role;
 import org.javibanda.model.entity.User;
 import org.javibanda.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final AdminUserService adminUserService;
+    private final ClaimFeign claimFeign;
 
     public User save(User user){
         if (userExist(user)){
@@ -27,6 +30,11 @@ public class UserService {
 
     public User get(String email){
         return userRepository.getUserByEmail(email);
+    }
+
+    public User getUserFromToken(String token){
+        ClaimDTO claim = claimFeign.getClaim(token);
+        return userRepository.getUserById(UUID.fromString(claim.getId()));
     }
 
     private Role getRole(String email){

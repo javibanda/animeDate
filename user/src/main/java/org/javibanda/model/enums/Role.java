@@ -1,4 +1,4 @@
-package org.javibanda.model;
+package org.javibanda.model.enums;
 
 public enum Role {
     ADMIN,

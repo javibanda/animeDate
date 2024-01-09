@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Long countByEmailOrUserName(String email, String userName);
 
     User getUserByEmail(String email);
+
+    User getUserById(UUID id);
 }

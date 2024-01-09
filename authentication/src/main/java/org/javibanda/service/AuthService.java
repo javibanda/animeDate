@@ -1,9 +1,11 @@
 package org.javibanda.service;
 
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.javibanda.feign.UserFeign;
 import org.javibanda.model.dto.AuthRequest;
 import org.javibanda.model.dto.AuthResponse;
+import org.javibanda.model.dto.ClaimDTO;
 import org.javibanda.model.dto.User;
 import org.javibanda.model.enums.AuthOperation;
 import org.mindrot.jbcrypt.BCrypt;
@@ -28,6 +30,11 @@ public class AuthService {
     public AuthResponse login(AuthRequest request){
         User user = userFeign.getUser(request.getEmail());
         return getAuthResponse(user, request, AuthOperation.LOGIN);
+    }
+
+    public ClaimDTO getClaims(String token){
+        Claims claims = jwtUtil.getClaims(token);
+        return new ClaimDTO(claims.get("id").toString(), claims.get("role").toString());
     }
 
     public AuthResponse getAuthResponse(User user, AuthRequest request, AuthOperation authOperation){
