@@ -14,4 +14,6 @@ public interface AnimeRepository extends JpaRepository<Anime, String> {
     List<Anime> findAnimeByProfile(UUID profileId);
 
     Anime findByName(String animeName);
+    @Query("select anime.name from Anime anime")
+    List<String> findAllAnimeName();
 }
