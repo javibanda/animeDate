@@ -1,6 +1,8 @@
 package org.javibanda.model;
 
 import lombok.Data;
+import org.javibanda.model.enums.Sex;
+import org.javibanda.model.enums.SexualOrientation;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -14,11 +16,11 @@ public class BaseProfile {
     @Column(name = "id", nullable = false)
     protected UUID id;
     @Column(name = "sex", nullable = false, length = 20)
-    protected String sex;
+    protected Sex sex;
     @Column(name = "favorite_anime")
     private String favoriteAnime;
     @Column(name = "sexual_orientation", nullable = false, length = 200)
-    protected String sexualOrientation;
+    protected SexualOrientation sexualOrientation;
     @Column(name = "waifu", nullable = false, length = 200)
     protected String waifu;
     @Column(name = "bio", columnDefinition = "text")

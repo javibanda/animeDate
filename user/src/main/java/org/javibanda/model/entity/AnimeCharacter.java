@@ -2,6 +2,7 @@ package org.javibanda.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.javibanda.model.enums.Sex;
 
 import javax.persistence.*;
 
@@ -19,5 +20,5 @@ public class AnimeCharacter {
     @JoinColumn(name = "anime", nullable = false)
     private Anime anime;
     @Column(name = "sex", nullable = false, length = 20)
-    private String sex = "MALE";
+    private Sex sex = Sex.MALE;
 }
