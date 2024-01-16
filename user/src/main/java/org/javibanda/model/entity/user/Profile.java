@@ -1,8 +1,9 @@
-package org.javibanda.model.entity;
+package org.javibanda.model.entity.user;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.javibanda.model.BaseProfile;
+import org.javibanda.model.entity.anime.AnimeCharacter;
 
 import javax.persistence.*;
 

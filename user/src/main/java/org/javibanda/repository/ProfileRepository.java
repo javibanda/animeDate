@@ -1,5 +1,5 @@
 package org.javibanda.repository;
-import org.javibanda.model.entity.Profile;
+import org.javibanda.model.entity.user.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

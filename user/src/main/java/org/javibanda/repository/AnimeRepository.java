@@ -1,5 +1,5 @@
 package org.javibanda.repository;
-import org.javibanda.model.entity.Anime;
+import org.javibanda.model.entity.anime.Anime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

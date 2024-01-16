@@ -3,7 +3,7 @@ package org.javibanda.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.javibanda.model.dto.ClaimDTO;
-import org.javibanda.model.entity.User;
+import org.javibanda.model.entity.user.User;
 import org.javibanda.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

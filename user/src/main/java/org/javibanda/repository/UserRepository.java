@@ -1,6 +1,6 @@
 package org.javibanda.repository;
 
-import org.javibanda.model.entity.User;
+import org.javibanda.model.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,4 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Long countByEmailOrUserName(String email, String userName);
 
     User getUserByEmail(String email);
-
-    User getUserById(UUID id);
 }

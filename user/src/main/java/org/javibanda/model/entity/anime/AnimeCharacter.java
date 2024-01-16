@@ -1,4 +1,4 @@
-package org.javibanda.model.entity;
+package org.javibanda.model.entity.anime;
 
 import lombok.Getter;
 import lombok.Setter;

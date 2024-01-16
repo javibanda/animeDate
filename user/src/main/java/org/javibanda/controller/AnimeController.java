@@ -3,7 +3,7 @@ package org.javibanda.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.javibanda.model.dto.ClaimDTO;
-import org.javibanda.model.entity.Anime;
+import org.javibanda.model.entity.anime.Anime;
 import org.javibanda.model.enums.Role;
 import org.javibanda.service.AnimeService;
 import org.javibanda.service.UserService;

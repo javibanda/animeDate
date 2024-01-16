@@ -1,6 +1,6 @@
 package org.javibanda.mapper;
 
-import org.javibanda.model.entity.AnimeProfile;
+import org.javibanda.model.entity.anime.AnimeProfile;
 
 import java.util.ArrayList;
 import java.util.List;

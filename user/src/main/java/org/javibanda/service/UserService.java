@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.javibanda.feign.ClaimFeign;
 import org.javibanda.model.dto.ClaimDTO;
 import org.javibanda.model.enums.Role;
-import org.javibanda.model.entity.User;
+import org.javibanda.model.entity.user.User;
 import org.javibanda.repository.ProfileRepository;
 import org.javibanda.repository.UserRepository;
 import org.springframework.stereotype.Service;

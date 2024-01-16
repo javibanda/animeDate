@@ -2,7 +2,7 @@ package org.javibanda.service;
 import lombok.AllArgsConstructor;
 import lombok.val;
 import org.javibanda.mapper.AnimeMapper;
-import org.javibanda.model.entity.Anime;
+import org.javibanda.model.entity.anime.Anime;
 import org.javibanda.repository.AnimeRepository;
 import org.springframework.stereotype.Service;
 
