@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface AnimeRepository extends JpaRepository<Anime, String> {
-    @Query("select anime from Anime anime join AnimeProfile animeProfile where animeProfile.profile = ?1")
+    @Query("select anime from Anime anime join  AnimeProfile animeProfile on animeProfile.anime = anime.name where animeProfile.profile = ?1")
     List<Anime> findAnimeByProfile(UUID profileId);
 
     Anime findByName(String animeName);
