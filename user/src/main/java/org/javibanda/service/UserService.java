@@ -36,7 +36,7 @@ public class UserService {
 
     public ClaimDTO getUserFromToken(String token){
         ClaimDTO claim = claimFeign.getClaim(token);
-        claim.setId(profileRepository.findProfileId(claim.getId()));
+        claim.setProfileId(profileRepository.findProfileId(claim.getId()));
         return claim;
     }
 

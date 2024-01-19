@@ -20,5 +20,6 @@ public class AnimeCharacter {
     @JoinColumn(name = "anime", nullable = false)
     private Anime anime;
     @Column(name = "sex", nullable = false, length = 20)
+    @Enumerated(EnumType.STRING)
     private Sex sex = Sex.MALE;
 }
