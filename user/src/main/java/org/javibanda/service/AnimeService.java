@@ -28,7 +28,7 @@ public class AnimeService {
         return repository.findAllAnimeName();
     }
 
-    public List<Anime> getFavoriteAnimes(UUID profileId){
+    public List<String> getFavoriteAnimes(UUID profileId){
         return repository.findAnimeByProfile(profileId);
     }
 

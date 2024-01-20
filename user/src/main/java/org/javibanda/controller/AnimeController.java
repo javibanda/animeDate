@@ -43,7 +43,7 @@ public class AnimeController {
     }
 
     @GetMapping("/favorites")
-    public ResponseEntity<List<Anime>> getFavoriteAnimes(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<List<String>> getFavoriteAnimes(@RequestHeader("Authorization") String token) {
         val favoriteAnimes = animeService.getFavoriteAnimes(getProfileId(token));
         return ResponseEntity.ok(favoriteAnimes);
     }

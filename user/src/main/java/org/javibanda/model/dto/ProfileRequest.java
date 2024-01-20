@@ -10,5 +10,7 @@ public class ProfileRequest extends BaseProfile {
 
     private String favoriteCharacter;
 
-    protected String waifu;
+    private String waifu;
+
+    private String birthDate;
 }

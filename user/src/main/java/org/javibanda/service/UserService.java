@@ -34,6 +34,10 @@ public class UserService {
         return userRepository.getUserByEmail(email);
     }
 
+    public String getName(UUID id){
+        return userRepository.getNameById(id);
+    }
+
     public ClaimDTO getUserFromToken(String token){
         ClaimDTO claim = claimFeign.getClaim(token);
         claim.setProfileId(profileRepository.findProfileId(claim.getId()));

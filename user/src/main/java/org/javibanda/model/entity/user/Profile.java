@@ -6,6 +6,7 @@ import org.javibanda.model.BaseProfile;
 import org.javibanda.model.entity.anime.AnimeCharacter;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
@@ -25,5 +26,7 @@ public class Profile extends BaseProfile {
     @ManyToOne
     @JoinColumn(name = "waifu", nullable = false)
     private AnimeCharacter waifu;
+    @Column(name = "birth_date", nullable = false)
+    private Date birthDate;
 
 }
