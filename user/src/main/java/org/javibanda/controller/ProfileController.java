@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.UUID;
 
 
@@ -24,7 +25,8 @@ public class ProfileController {
 
     @PostMapping
     public ResponseEntity<String> save(@RequestHeader("Authorization") String token,
-                                       @RequestBody ProfileRequest request) {
+                                       @RequestBody ProfileRequest request) throws ParseException {
+        //TODO CONTROL SI USUARIO YA ESTA REGISTRADO
 
         profileService.save(request, getClaimDto(token).getId());
         return ResponseEntity.ok("OK");

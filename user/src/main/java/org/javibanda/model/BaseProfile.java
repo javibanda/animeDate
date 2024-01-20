@@ -32,4 +32,6 @@ public class BaseProfile {
     protected UUID userId;
     @Column(name = "is_cosplayer", nullable = false)
     protected boolean isCosplayer = true;
+    @Column(name = "name")
+    private String name;
 }

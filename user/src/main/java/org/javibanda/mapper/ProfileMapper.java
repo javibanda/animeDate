@@ -6,6 +6,7 @@ import org.javibanda.model.entity.anime.AnimeCharacter;
 import org.javibanda.model.entity.user.Profile;
 import org.javibanda.util.UtilDate;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public class ProfileMapper {
     public static Profile toEntity(AnimeCharacter favoriteCharacter,
                                    AnimeCharacter waifu,
                                    UUID userId,
-                                   ProfileRequest request){
+                                   ProfileRequest request) throws ParseException {
         return Profile.builder()
                 .id(UUID.randomUUID())
                 .favoriteCharacter(favoriteCharacter)
@@ -27,6 +28,7 @@ public class ProfileMapper {
                 .favoriteAnime(request.getFavoriteAnime())
                 .whatSearch(request.getWhatSearch())
                 .birthDate(UtilDate.formateDate(request.getBirthDate()))
+                .name(request.getName())
                 .build();
     }
 

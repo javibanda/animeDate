@@ -1,15 +1,16 @@
 package org.javibanda.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class UtilDate {
 
-    public static Date formateDate(String date){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-M-yyyy");
-        return (Date) formatter.parse(date);
+    public static Date formateDate(String date) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy");
+        return formatter.parse(date);
     }
 
     public static int calculateAge(Date birthdate) {
