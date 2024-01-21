@@ -28,4 +28,6 @@ public interface MatchRepository extends JpaRepository<Match, UUID> {
             "AND p.id != ?1 " +
             "AND p.sex != ?2 ")
     List<ShortProfile> getMatches(UUID profileId, Sex sex, Pageable pageable);
+    @Query("Select m from Match m where m.profile1.id = ?1 and m.profile2.id = ?2")
+    Match findByProfiles(UUID profileId1, UUID profile2Id);
 }

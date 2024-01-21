@@ -1,6 +1,6 @@
 package org.javibanda.model.entity.match;
 
-import lombok.Data;
+import lombok.*;
 import org.javibanda.model.entity.user.ShortProfile;
 
 import javax.persistence.*;
@@ -9,7 +9,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "match")
-@Data
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Match {
     @Id
     @GeneratedValue(generator = "uuid2")
