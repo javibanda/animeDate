@@ -6,6 +6,7 @@ import org.javibanda.mapper.ProfileMapper;
 import org.javibanda.model.dto.ProfileRequest;
 import org.javibanda.model.dto.ProfileResponseShort;
 import org.javibanda.model.entity.user.Profile;
+import org.javibanda.model.entity.user.ShortProfile;
 import org.javibanda.repository.ProfileRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class ProfileService {
         repository.save(profile);
     }
 
-    public ProfileResponseShort getShortProfile(UUID profileId){
+    public ProfileResponseShort getProfile(UUID profileId){
         Profile profile = repository.findProfileById(profileId);
         if (profile == null){
             return null;
@@ -38,4 +39,9 @@ public class ProfileService {
         List<String> favoriteAnimes = animeService.getFavoriteAnimes(profileId);
         return ProfileMapper.toDTO(profile, favoriteAnimes, userName);
     }
+
+    public ShortProfile getShortProfile(UUID profileId){
+        return repository.findShortProfileById(profileId);
+    }
+
 }

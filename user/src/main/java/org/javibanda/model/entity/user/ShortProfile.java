@@ -1,6 +1,8 @@
 package org.javibanda.model.entity.user;
 
 import lombok.*;
+import org.javibanda.model.enums.Sex;
+import org.javibanda.model.enums.SexualOrientation;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -18,4 +20,13 @@ public class ShortProfile {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "sex", nullable = false, length = 20)
+    @Enumerated(EnumType.STRING)
+    protected Sex sex;
+
+    @Column(name = "sexual_orientation", nullable = false, length = 200)
+    @Enumerated(EnumType.STRING)
+    protected SexualOrientation sexualOrientation;
+
 }

@@ -18,7 +18,7 @@ import java.util.UUID;
 @SuperBuilder
 public class Profile extends BaseProfile {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", columnDefinition = "uuid", nullable = false)
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "favorite_character", nullable = false)

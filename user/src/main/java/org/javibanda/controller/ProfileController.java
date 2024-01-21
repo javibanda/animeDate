@@ -34,7 +34,7 @@ public class ProfileController {
 
     @GetMapping("/short")
     public ResponseEntity<ProfileResponseShort> getShortProfile(@RequestParam UUID profileId) {
-        val profileResponse = profileService.getShortProfile(profileId);
+        val profileResponse = profileService.getProfile(profileId);
         if (profileDontExist(profileResponse)){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
