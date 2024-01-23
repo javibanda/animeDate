@@ -44,15 +44,22 @@ public interface MatchRepository extends JpaRepository<Match, UUID> {
             "and m.matchProfile1 = true ")
     Integer getCountProfilesWhoLikedMe(UUID yourProfile);
 
-
-    @Query("select case " +
-            "when m.profile2.id = ?1 then m.profile1 " +
-            "else m.profile2 " +
-            "end " +
+    @Query("select m " +
             "from Match m " +
             "where (m.profile1.id = ?1 or m.profile2.id = ?1) " +
             "and m.matchProfile1 = true " +
             "and m.matchProfile2 = true")
-    List<ShortProfile> getMatchedProfiles(UUID yourProfileId);
+    List<Match> getMatchedProfiles(UUID yourProfileId);
+
+    //@Query("select case " +
+    //        "when m.profile2.id = ?1 then m.profile1 " +
+    //        "else m.profile2 " +
+    //        "end " +
+    //        "from Match m " +
+    //        "where (m.profile1.id = ?1 or m.profile2.id = ?1) " +
+    //        "and m.matchProfile1 = true " +
+    //        "and m.matchProfile2 = true")
+    //List<ShortProfile> getMatchedProfiles(UUID yourProfileId);
 
 }
+

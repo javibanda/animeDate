@@ -11,8 +11,10 @@ import org.javibanda.repository.MatchRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,57 +23,58 @@ public class MatchService {
     private final MatchRepository repository;
     private final ProfileService profileService;
 
-    public List<ShortProfile> getProfilesForMatches(UUID profileId){
+    public List<ShortProfile> getProfilesForMatches(UUID profileId) {
         val profile = profileService.getShortProfile(profileId);
-        return repository.getProfilesForMatches(profileId,
-                getSexParameter(profile),
-                PageRequest.of(0,20));
+        return repository.getProfilesForMatches(profileId, getSexParameter(profile), PageRequest.of(0, 20));
     }
 
-    public void createMatch(UUID yourProfileId, UUID matchedProfileId, Boolean matchAnswer){
+    public void createMatch(UUID yourProfileId, UUID matchedProfileId, Boolean matchAnswer) {
         var matchEntity = getMatch(yourProfileId, matchedProfileId);
-        if (matchExist(matchEntity)){
+        if (matchExist(matchEntity)) {
             repository.save(MatchMapper.updateEntity(matchEntity, matchAnswer));
-        }else{
+        } else {
             val yourProfile = profileService.getShortProfile(yourProfileId);
             val matchedProfile = profileService.getShortProfile(matchedProfileId);
             repository.save(MatchMapper.toEntity(yourProfile, matchedProfile, matchAnswer));
         }
     }
 
-    public List<ShortProfile> getProfilesWhoLikedMe(UUID yourProfileId){
+    public List<ShortProfile> getProfilesWhoLikedMe(UUID yourProfileId) {
         return repository.getProfilesWhoLikedMe(yourProfileId, PageRequest.of(0, 50));
     }
 
-    public Integer getCountProfilesWhoLikedMe(UUID yourProfileId){
+    public Integer getCountProfilesWhoLikedMe(UUID yourProfileId) {
         return repository.getCountProfilesWhoLikedMe(yourProfileId);
     }
 
-    public List<ShortProfile> getMatches(UUID yourProfileId){
+    public List<ShortProfile> getMatches(UUID yourProfileId) {
         val list = repository.getMatchedProfiles(yourProfileId);
-        return list;
+        return list.stream().map(match ->
+                match.getProfile1().getId().equals(yourProfileId) ?
+                        match.getProfile2() : match.getProfile1())
+                .collect(Collectors.toList());
     }
 
-    private Match getMatch(UUID yourProfileId, UUID matchedProfileId){
+    private Match getMatch(UUID yourProfileId, UUID matchedProfileId) {
         return repository.findByProfiles(matchedProfileId, yourProfileId);
     }
 
-    private boolean matchExist(Match match){
+    private boolean matchExist(Match match) {
         return match != null;
     }
 
-    private Sex getSexParameter(ShortProfile profile){
+    private Sex getSexParameter(ShortProfile profile) {
         val profileSex = profile.getSex();
         val profileSexualOrientation = profile.getSexualOrientation();
-        if (Sex.MALE == profileSex){
+        if (Sex.MALE == profileSex) {
             return getSexParameterMale(profileSexualOrientation);
-        }else{
+        } else {
             return getSexParameterFemale(profileSexualOrientation);
         }
     }
 
-    private Sex getSexParameterMale(SexualOrientation sexualOrientation){
-        switch (sexualOrientation){
+    private Sex getSexParameterMale(SexualOrientation sexualOrientation) {
+        switch (sexualOrientation) {
             case HETEROSEXUAL:
                 return Sex.MALE;
             case HOMOSEXUAL:
@@ -82,8 +85,8 @@ public class MatchService {
         return null;
     }
 
-    private Sex getSexParameterFemale(SexualOrientation sexualOrientation){
-        switch (sexualOrientation){
+    private Sex getSexParameterFemale(SexualOrientation sexualOrientation) {
+        switch (sexualOrientation) {
             case HETEROSEXUAL:
                 return Sex.FEMALE;
             case HOMOSEXUAL:
