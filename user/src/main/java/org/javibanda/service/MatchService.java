@@ -21,9 +21,9 @@ public class MatchService {
     private final MatchRepository repository;
     private final ProfileService profileService;
 
-    public List<ShortProfile> getMatchedProfiles(UUID profileId){
+    public List<ShortProfile> getProfilesForMatches(UUID profileId){
         val profile = profileService.getShortProfile(profileId);
-        return repository.getMatches(profileId,
+        return repository.getProfilesForMatches(profileId,
                 getSexParameter(profile),
                 PageRequest.of(0,20));
     }
@@ -37,6 +37,19 @@ public class MatchService {
             val matchedProfile = profileService.getShortProfile(matchedProfileId);
             repository.save(MatchMapper.toEntity(yourProfile, matchedProfile, matchAnswer));
         }
+    }
+
+    public List<ShortProfile> getProfilesWhoLikedMe(UUID yourProfileId){
+        return repository.getProfilesWhoLikedMe(yourProfileId, PageRequest.of(0, 50));
+    }
+
+    public Integer getCountProfilesWhoLikedMe(UUID yourProfileId){
+        return repository.getCountProfilesWhoLikedMe(yourProfileId);
+    }
+
+    public List<ShortProfile> getMatches(UUID yourProfileId){
+        val list = repository.getMatchedProfiles(yourProfileId);
+        return list;
     }
 
     private Match getMatch(UUID yourProfileId, UUID matchedProfileId){

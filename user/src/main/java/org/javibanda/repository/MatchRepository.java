@@ -27,7 +27,32 @@ public interface MatchRepository extends JpaRepository<Match, UUID> {
             ") " +
             "AND p.id != ?1 " +
             "AND p.sex != ?2 ")
-    List<ShortProfile> getMatches(UUID profileId, Sex sex, Pageable pageable);
+    List<ShortProfile> getProfilesForMatches(UUID profileId, Sex sex, Pageable pageable);
+
     @Query("Select m from Match m where m.profile1.id = ?1 and m.profile2.id = ?2")
     Match findByProfiles(UUID profileId1, UUID profile2Id);
+
+    @Query("select m.profile1 from Match m " +
+            "where m.profile1.id = ?1 " +
+            "and m.matchProfile2 is null " +
+            "and m.matchProfile1 = true ")
+    List<ShortProfile> getProfilesWhoLikedMe(UUID yourProfileId, Pageable pageable);
+
+    @Query("select count(m.profile1) from Match m " +
+            "where m.profile1.id = ?1 " +
+            "and m.matchProfile2 is null " +
+            "and m.matchProfile1 = true ")
+    Integer getCountProfilesWhoLikedMe(UUID yourProfile);
+
+
+    @Query("select case " +
+            "when m.profile2.id = ?1 then m.profile1 " +
+            "else m.profile2 " +
+            "end " +
+            "from Match m " +
+            "where (m.profile1.id = ?1 or m.profile2.id = ?1) " +
+            "and m.matchProfile1 = true " +
+            "and m.matchProfile2 = true")
+    List<ShortProfile> getMatchedProfiles(UUID yourProfileId);
+
 }
