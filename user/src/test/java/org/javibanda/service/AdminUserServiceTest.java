@@ -2,6 +2,7 @@ package org.javibanda.service;
 
 import lombok.val;
 import org.javibanda.repository.AdminUserRepository;
+import org.javibanda.service.impl.AdminUserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,10 +17,11 @@ public class AdminUserServiceTest {
 
 
     @InjectMocks
-    private AdminUserService adminUserService;
+    private AdminUserServiceImpl adminUserService;
 
     @Mock
     private AdminUserRepository adminUserRepository;
+
     @Test
     public void should_return_true_when_isAdminUser() {
         when(adminUserRepository.existsById("email")).thenReturn(true);
