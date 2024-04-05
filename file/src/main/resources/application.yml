@@ -1,0 +1,25 @@
+server:
+  port: 9004
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/animedate
+    username: javibanda
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  application:
+    name: file-service
+
+aws:
+  access:
+    key: asd
+  secret:
+    key: asd
