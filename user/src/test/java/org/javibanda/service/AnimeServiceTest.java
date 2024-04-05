@@ -4,6 +4,7 @@ import lombok.val;
 import org.javibanda.mapper.AnimeMapper;
 import org.javibanda.model.entity.anime.Anime;
 import org.javibanda.repository.AnimeRepository;
+import org.javibanda.service.impl.AnimeProfileServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,7 +23,7 @@ public class AnimeServiceTest {
     private AnimeRepository animeRepository;
 
     @Mock
-    private AnimeProfileService animeProfileService;
+    private AnimeProfileServiceImpl animeProfileService;
 
 
     @Test

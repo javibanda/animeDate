@@ -3,6 +3,7 @@ package org.javibanda.service;
 import org.javibanda.mapper.AnimeProfileMapper;
 import org.javibanda.model.entity.anime.AnimeProfile;
 import org.javibanda.repository.AnimeProfileRepository;
+import org.javibanda.service.impl.AnimeProfileServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(MockitoJUnitRunner.class)
 public class AnimeProfileServiceTest {
     @InjectMocks
-    private AnimeProfileService animeProfileService;
+    private AnimeProfileServiceImpl animeProfileService;
     @Mock
     private AnimeProfileRepository repository;
 
