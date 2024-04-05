@@ -11,19 +11,19 @@
         <module name="config" />
         <module name="user" />
         <module name="discovery" />
-        <module name="Gateway" />
+        <module name="gateway" />
         <module name="authentication" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Gateway" options="-parameters" />
       <module name="animeDate" options="" />
       <module name="authentication" options="-parameters" />
       <module name="config" options="-parameters" />
       <module name="discovery" options="-parameters" />
       <module name="file" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="user" options="-parameters" />
     </option>
   </component>
