@@ -1,39 +1,20 @@
 package org.javibanda.service;
-import lombok.AllArgsConstructor;
-import lombok.val;
-import org.javibanda.mapper.AnimeMapper;
+
 import org.javibanda.model.entity.anime.Anime;
-import org.javibanda.repository.AnimeRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-@Service
-@AllArgsConstructor
-public class AnimeService {
-    private final AnimeRepository repository;
-    private final AnimeProfileService animeProfileService;
+public interface AnimeService {
 
-    public void save(String animeName){
-        val anime = AnimeMapper.toEntity(animeName);
-        repository.save(anime);
-    }
+    void save(String animeName);
 
-    public Anime get(String animeName){
-        return repository.findByName(animeName);
-    }
+    Anime get(String animeName);
 
-    public List<String> getAll(){
-        return repository.findAllAnimeName();
-    }
+    List<String> getAll();
 
-    public List<String> getFavoriteAnimes(UUID profileId){
-        return repository.findAnimeByProfile(profileId);
-    }
+    List<String> getFavoriteAnimes(UUID profileId);
 
-    public void saveFavoriteAnime(UUID profileId, List<String> animes){
-        animeProfileService.save(profileId, animes);
-    }
+    void saveFavoriteAnime(UUID profileId, List<String> animes);
 
 }

@@ -5,6 +5,7 @@ import org.javibanda.mapper.AnimeMapper;
 import org.javibanda.model.entity.anime.Anime;
 import org.javibanda.repository.AnimeRepository;
 import org.javibanda.service.impl.AnimeProfileServiceImpl;
+import org.javibanda.service.impl.AnimeServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,7 +18,7 @@ import static org.mockito.Mockito.*;
 public class AnimeServiceTest {
 
     @InjectMocks
-    private AnimeService animeService;
+    private AnimeServiceImpl animeService;
 
     @Mock
     private AnimeRepository animeRepository;
