@@ -1,25 +1,13 @@
 package org.javibanda.service;
 
-import lombok.RequiredArgsConstructor;
 import org.javibanda.model.entity.anime.AnimeCharacter;
-import org.javibanda.repository.CharacterRepository;
-import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-public class CharacterService {
-    private final CharacterRepository repository;
+public interface CharacterService {
 
-    public void save(AnimeCharacter character){
-        repository.save(character);
-    }
+    void save(AnimeCharacter character);
 
-    public boolean characterExist(String characterName){
-        return repository.existsById(characterName);
-    }
+    boolean characterExist(String characterName);
 
-    public AnimeCharacter getByName(String name){
-        return repository.findByName(name);
-    }
+    AnimeCharacter getByName(String name);
 
 }
