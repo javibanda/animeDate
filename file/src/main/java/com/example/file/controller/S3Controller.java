@@ -28,7 +28,7 @@ public class S3Controller {
         String path = BASE_PATH + profileId.toString() + "/";
         String fileName = UUID.randomUUID() + ".jpg";
 
-        s3Service.uploadFile(path + fileName, file);
+        s3Service.uploadFile(path + fileName, file, profileId);
         return "File uploaded";
     }
 
