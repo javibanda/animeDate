@@ -26,6 +26,6 @@ public class BucketConfig {
         AWSCredentials credentials = new BasicAWSCredentials(awsAccessKey,awsSecretKey);
         return AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                .withRegion(Regions.US_WEST_2)
+                .withRegion(Regions.EU_NORTH_1)
                 .build();
     }}

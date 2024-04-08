@@ -20,6 +20,6 @@ spring:
 
 aws:
   access:
-    key: asd
+    key: accessKey
   secret:
-    key: asd
+    key: secretKey
