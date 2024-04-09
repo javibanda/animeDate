@@ -23,6 +23,8 @@ public class UserPhoto {
     private String path;
 
     private Timestamp date;
+    @Column(name = "\"order\"")
+    private Integer order;
 
     private UUID profileId;
 

@@ -13,4 +13,6 @@ public interface S3Service {
     void uploadFile(MultipartFile file, UserPhoto userPhotoEntity) throws IOException;
 
     List<S3Object> getFiles(UUID profileId);
+
+    void deleteFile(UUID fileId);
 }
