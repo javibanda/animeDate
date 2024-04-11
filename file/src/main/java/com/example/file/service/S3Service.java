@@ -1,6 +1,6 @@
 package com.example.file.service;
 
-import com.amazonaws.services.s3.model.S3Object;
+import com.example.file.model.dto.UserPhotoFile;
 import com.example.file.model.entity.UserPhoto;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,7 +12,7 @@ public interface S3Service {
 
     void uploadFile(MultipartFile file, UserPhoto userPhotoEntity) throws IOException;
 
-    List<S3Object> getFiles(UUID profileId);
+    List<UserPhotoFile> getFiles(UUID profileId);
 
-    void deleteFile(UUID fileId);
+    void deleteFile(UUID fileId, UUID profileId);
 }

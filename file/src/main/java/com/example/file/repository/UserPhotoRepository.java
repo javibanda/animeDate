@@ -11,8 +11,8 @@ import java.util.UUID;
 
 @Repository
 public interface UserPhotoRepository extends JpaRepository<UserPhoto, UUID> {
-    @Query("select userPhoto.path from UserPhoto userPhoto where userPhoto.profileId = ?1 order by userPhoto.order")
-    List<String> findPathsByProfileId(UUID profileId);
+
+    List<UserPhoto> findUserPhotoByProfileIdOrderByOrder(UUID profileId);
 
     Integer countByProfileId(UUID profileId);
 
@@ -27,5 +27,7 @@ public interface UserPhotoRepository extends JpaRepository<UserPhoto, UUID> {
     UserPhoto findUserPhotoById(UUID id);
 
     UserPhoto findUserPhotoByProfileIdAndOrder(UUID profileId, Integer order);
+
+    boolean existsByIdAndProfileId(UUID id, UUID profileId);
 
 }

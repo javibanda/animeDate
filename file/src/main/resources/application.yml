@@ -23,3 +23,4 @@ aws:
     key: accessKey
   secret:
     key: secretKey
+  bucket: anime-date

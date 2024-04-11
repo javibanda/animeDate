@@ -10,13 +10,15 @@ public interface UserPhotoService {
 
     void save(UserPhoto entity);
 
-    List<String> getPaths(UUID profileId);
+    List<UserPhoto> getUserPhotoByProfileId(UUID profileId);
 
     Integer getCountUserPhoto(UUID profileId);
 
-    void orderUserPhoto(List<UserPhotoOrder> userPhotoOrders, UUID profileId) throws Exception;
+    void orderUserPhoto(List<UserPhotoOrder> userPhotoOrders, UUID profileId);
 
     void deleteUserPhoto(UserPhoto userPhoto);
 
     UserPhoto getUserPhoto(UUID id);
+
+    boolean isNotFileFromProfile(UUID fileId, UUID profileId);
 }
