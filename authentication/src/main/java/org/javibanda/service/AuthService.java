@@ -9,7 +9,7 @@ import org.javibanda.model.enums.AuthOperation;
 public interface AuthService {
     AuthResponse register(AuthRequest request);
 
-    AuthResponse login(AuthRequest request);
+    AuthResponse login(AuthRequest request, boolean isMobile);
     ClaimDTO getClaims(String token);
-    AuthResponse getAuthResponse(User user, AuthRequest request, AuthOperation authOperation);
+    AuthResponse getAuthResponse(User user, AuthRequest request, AuthOperation authOperation, boolean isMobile);
 }

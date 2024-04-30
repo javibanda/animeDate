@@ -8,6 +8,7 @@ import org.javibanda.model.dto.AuthResponse;
 import org.javibanda.model.dto.ClaimDTO;
 import org.javibanda.model.dto.User;
 import org.javibanda.model.enums.AuthOperation;
+import org.javibanda.model.enums.TokenType;
 import org.javibanda.service.AuthService;
 import org.javibanda.service.JwtUtil;
 import org.mindrot.jbcrypt.BCrypt;
@@ -26,12 +27,12 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse register(AuthRequest request) {
         request.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
         User registeredUser = restTemplate.postForObject("http://user-service/users", request, User.class);
-        return getAuthResponse(registeredUser, request, AuthOperation.REGISTER);
+        return getAuthResponse(registeredUser, request, AuthOperation.REGISTER, false);
     }
     @Override
-    public AuthResponse login(AuthRequest request){
+    public AuthResponse login(AuthRequest request, boolean isMobile){
         User user = userFeign.getUser(request.getEmail());
-        return getAuthResponse(user, request, AuthOperation.LOGIN);
+        return getAuthResponse(user, request, AuthOperation.LOGIN, isMobile);
     }
     @Override
     public ClaimDTO getClaims(String token){
@@ -39,15 +40,22 @@ public class AuthServiceImpl implements AuthService {
         return new ClaimDTO(claims.get("id").toString(), claims.get("role").toString());
     }
     @Override
-    public AuthResponse getAuthResponse(User user, AuthRequest request, AuthOperation authOperation){
+    public AuthResponse getAuthResponse(User user, AuthRequest request, AuthOperation authOperation, boolean isMobile){
+        String accessToken;
+        String refreshToken;
         if (user == null){
             return null;
         }
         if (!checkPassword(request.getPassword(), user.getPassword(), authOperation)){
             return null;
         }
-        String accessToken = jwtUtil.generate(user.getId().toString(), user.getRole(), "ACCESS");
-        String refreshToken = jwtUtil.generate(user.getId().toString(), user.getRole(), "REFRESH");
+        if (isMobile){
+            accessToken = jwtUtil.generate(user.getId().toString(), user.getRole(), TokenType.MOBILE);
+            refreshToken = accessToken;
+        }else {
+            accessToken = jwtUtil.generate(user.getId().toString(), user.getRole(), TokenType.ACCESS);
+            refreshToken = jwtUtil.generate(user.getId().toString(), user.getRole(), TokenType.REFRESH);
+        }
 
         return new AuthResponse(accessToken, refreshToken);
     }

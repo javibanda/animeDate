@@ -5,6 +5,7 @@ import org.javibanda.model.dto.AuthRequest;
 import org.javibanda.model.dto.AuthResponse;
 import org.javibanda.model.dto.ClaimDTO;
 import org.javibanda.service.AuthService;
+import org.javibanda.util.Util;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,10 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request){
-        AuthResponse authResponse = authService.login(request);
+    public ResponseEntity<AuthResponse> login(@RequestHeader(value="User-Agent") String userAgent,
+                                              @RequestBody AuthRequest request){
+
+        AuthResponse authResponse = authService.login(request, Util.requestIsMobile(userAgent));
         if (authResponse != null){
             return ResponseEntity.ok(authResponse);
         }else {

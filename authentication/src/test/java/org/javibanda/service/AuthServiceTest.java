@@ -4,6 +4,7 @@ import org.javibanda.model.dto.AuthRequest;
 import org.javibanda.model.dto.AuthResponse;
 import org.javibanda.model.dto.User;
 import org.javibanda.model.enums.AuthOperation;
+import org.javibanda.model.enums.TokenType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mindrot.jbcrypt.BCrypt;
@@ -31,9 +32,9 @@ public class AuthServiceTest {
         String pass = "password";
         String hashed_password = BCrypt.hashpw(pass, BCrypt.gensalt());
 
-        when(jwtUtil.generate("", "", "")).thenReturn("a");
+        when(jwtUtil.generate("", "", TokenType.REFRESH)).thenReturn("a");
 
-        AuthResponse response = authService.getAuthResponse(userDTO(hashed_password), authRequest(pass), AuthOperation.LOGIN);
+        AuthResponse response = authService.getAuthResponse(userDTO(hashed_password), authRequest(pass), AuthOperation.LOGIN, false);
         assertNotNull(response);
 
     }

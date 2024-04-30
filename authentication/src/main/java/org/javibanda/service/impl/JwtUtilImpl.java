@@ -3,6 +3,7 @@ package org.javibanda.service.impl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.javibanda.model.enums.TokenType;
 import org.javibanda.service.JwtUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,12 +34,22 @@ public class JwtUtilImpl implements JwtUtil {
     }
 
     @Override
-    public String generate(String userId, String role, String tokenType) {
+    public String generate(String userId, String role, TokenType tokenType) {
         Map<String, String> claims = Map.of("id", userId, "role", role);
-        long expMillis = "ACCESS".equalsIgnoreCase(tokenType)
-                ? Long.parseLong(expiration) * 1000
-                : Long.parseLong(expiration) * 1000 * 5;
+        long expMillis = 0;
 
+        switch (tokenType){
+            case ACCESS:
+                expMillis = Long.parseLong(expiration) * 1000;
+                break;
+            case REFRESH:
+                expMillis = Long.parseLong(expiration) * 1000 * 5;
+                break;
+            case MOBILE:
+                expMillis = Long.parseLong(expiration) * 1000 * 1000000;
+                break;
+
+        }
         final Date now = new Date();
         final Date exp = new Date(now.getTime() + expMillis);
 

@@ -1,6 +1,7 @@
 package org.javibanda.service;
 
 import lombok.val;
+import org.javibanda.model.enums.TokenType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class JwtUtilTest {
     @Test
     public void should_getClaimsAccess() {
         val userId = "1234";
-        val token = jwtUtil.generate(userId, "USER", "ACCESS");
+        val token = jwtUtil.generate(userId, "USER", TokenType.ACCESS);
 
         val claim = jwtUtil.getClaims(token);
 
@@ -37,7 +38,7 @@ public class JwtUtilTest {
     @Test
     public void should_getClaimsRefresh() {
         val userId = "1234";
-        val token = jwtUtil.generate(userId, "USER", "REFRESH");
+        val token = jwtUtil.generate(userId, "USER", TokenType.REFRESH);
 
         val claim = jwtUtil.getClaims(token);
 
