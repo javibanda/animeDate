@@ -3,6 +3,7 @@ package org.javibanda.controller;
 import lombok.RequiredArgsConstructor;
 import org.javibanda.model.dto.ClaimDTO;
 import org.javibanda.model.dto.MatchRequest;
+import org.javibanda.model.entity.user.Profile;
 import org.javibanda.model.entity.user.ShortProfile;
 import org.javibanda.service.MatchService;
 import org.javibanda.service.UserService;
@@ -34,7 +35,7 @@ public class MatchController {
     }
 
     @GetMapping("/forMatches")
-    public ResponseEntity<List<ShortProfile>> getProfilesForMatches(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<List<Profile>> getProfilesForMatches(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(matchService.getProfilesForMatches(getClaimDto(token).getProfileId()));
     }
 

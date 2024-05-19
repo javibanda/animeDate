@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.javibanda.mapper.MatchMapper;
 import org.javibanda.model.entity.match.Match;
+import org.javibanda.model.entity.user.Profile;
 import org.javibanda.model.entity.user.ShortProfile;
 import org.javibanda.model.enums.Sex;
 import org.javibanda.model.enums.SexualOrientation;
@@ -26,7 +27,7 @@ public class MatchServiceImpl implements MatchService {
     private final ProfileService profileService;
 
     @Override
-    public List<ShortProfile> getProfilesForMatches(UUID profileId) {
+    public List<Profile> getProfilesForMatches(UUID profileId) {
         val profile = profileService.getShortProfile(profileId);
         return repository.getProfilesForMatches(profileId, getSexParameter(profile), PageRequest.of(0, 20));
     }

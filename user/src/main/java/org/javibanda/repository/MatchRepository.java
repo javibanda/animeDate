@@ -1,6 +1,7 @@
 package org.javibanda.repository;
 
 import org.javibanda.model.entity.match.Match;
+import org.javibanda.model.entity.user.Profile;
 import org.javibanda.model.entity.user.ShortProfile;
 import org.javibanda.model.enums.Sex;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Repository
 public interface MatchRepository extends JpaRepository<Match, UUID> {
 
-    @Query( "SELECT DISTINCT p FROM ShortProfile p " +
+    @Query( "SELECT DISTINCT p FROM Profile p " +
             "WHERE p NOT IN (" +
             "  SELECT m.profile1 FROM Match m " +
             "  WHERE m.profile2.id = ?1 " +
@@ -27,7 +28,7 @@ public interface MatchRepository extends JpaRepository<Match, UUID> {
             ") " +
             "AND p.id != ?1 " +
             "AND p.sex != ?2 ")
-    List<ShortProfile> getProfilesForMatches(UUID profileId, Sex sex, Pageable pageable);
+    List<Profile> getProfilesForMatches(UUID profileId, Sex sex, Pageable pageable);
 
     @Query("Select m from Match m where m.profile1.id = ?1 and m.profile2.id = ?2")
     Match findByProfiles(UUID profileId1, UUID profile2Id);
