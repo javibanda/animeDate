@@ -10,7 +10,7 @@ public interface MatchService{
 
     List<Profile> getProfilesForMatches(UUID profileId);
 
-    void createMatch(UUID yourProfileId, UUID matchedProfileId, Boolean matchAnswer);
+    Boolean createMatchAndCheckIsMutual(UUID yourProfileId, UUID matchedProfileId, Boolean matchAnswer);
 
     List<ShortProfile> getProfilesWhoLikedMe(UUID yourProfileId);
 

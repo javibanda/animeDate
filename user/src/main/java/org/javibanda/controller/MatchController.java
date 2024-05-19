@@ -1,6 +1,7 @@
 package org.javibanda.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.javibanda.model.dto.ClaimDTO;
 import org.javibanda.model.dto.MatchRequest;
 import org.javibanda.model.entity.user.Profile;
@@ -23,10 +24,10 @@ public class MatchController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<String> createMatch(@RequestHeader("Authorization") String token,
+    public ResponseEntity<Boolean> createMatch(@RequestHeader("Authorization") String token,
                                               @RequestBody MatchRequest request){
-        matchService.createMatch(yourProfileId(token), request.getProfileId(), request.getMatch());
-        return ResponseEntity.ok("Ok");
+        val matchIsMutual = matchService.createMatchAndCheckIsMutual(yourProfileId(token), request.getProfileId(), request.getMatch());
+        return ResponseEntity.ok(matchIsMutual);
     }
 
     @GetMapping

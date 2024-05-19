@@ -20,4 +20,8 @@ public class MatchMapper {
         matchEntity.setMatchedAt(new Timestamp(System.currentTimeMillis()));
         return matchEntity;
     }
+
+    public static boolean matchIsMutual(Match matchEntity){
+        return matchEntity.getMatchProfile1() && matchEntity.getMatchProfile2();
+    }
 }

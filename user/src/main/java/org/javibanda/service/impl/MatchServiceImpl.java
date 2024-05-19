@@ -33,14 +33,16 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public void createMatch(UUID yourProfileId, UUID matchedProfileId, Boolean matchAnswer) {
+    public Boolean createMatchAndCheckIsMutual(UUID yourProfileId, UUID matchedProfileId, Boolean matchAnswer) {
         var matchEntity = getMatch(yourProfileId, matchedProfileId);
         if (matchExist(matchEntity)) {
             repository.save(MatchMapper.updateEntity(matchEntity, matchAnswer));
+            return MatchMapper.matchIsMutual(matchEntity);
         } else {
             val yourProfile = profileService.getShortProfile(yourProfileId);
             val matchedProfile = profileService.getShortProfile(matchedProfileId);
             repository.save(MatchMapper.toEntity(yourProfile, matchedProfile, matchAnswer));
+            return false;
         }
     }
 
