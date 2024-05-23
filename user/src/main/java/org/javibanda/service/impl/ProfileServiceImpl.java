@@ -29,8 +29,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     public void save(ProfileRequest request, UUID userId) throws ParseException {
         val character = characterService.getByName(request.getFavoriteCharacter());
-        val waifu = characterService.getByName(request.getWaifu());
-        val profile = ProfileMapper.toEntity(character, waifu, userId, request);
+        val profile = ProfileMapper.toEntity(character, userId, request);
         repository.save(profile);
     }
 

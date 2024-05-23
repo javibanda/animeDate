@@ -13,13 +13,12 @@ import java.util.UUID;
 public class ProfileMapper {
 
     public static Profile toEntity(AnimeCharacter favoriteCharacter,
-                                   AnimeCharacter waifu,
                                    UUID userId,
                                    ProfileRequest request) throws ParseException {
         return Profile.builder()
                 .id(UUID.randomUUID())
                 .favoriteCharacter(favoriteCharacter)
-                .waifu(waifu)
+                .waifu(request.getWaifu())
                 .userId(userId)
                 .bio(request.getBio())
                 .sex(request.getSex())

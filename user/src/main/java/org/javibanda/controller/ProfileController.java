@@ -2,6 +2,7 @@ package org.javibanda.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.javibanda.model.dto.BooleanResponse;
 import org.javibanda.model.dto.ClaimDTO;
 import org.javibanda.model.dto.ProfileRequest;
 import org.javibanda.model.dto.ProfileResponseShort;
@@ -32,20 +33,30 @@ public class ProfileController {
         return ResponseEntity.ok("OK");
     }
 
+
+    @GetMapping("/existProfile")
+    public ResponseEntity<BooleanResponse> existProfile(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(new BooleanResponse(!profileDontExist(profileService.getProfile(yourProfileId(token)))));
+    }
+
     @GetMapping("/short")
     public ResponseEntity<ProfileResponseShort> getShortProfile(@RequestParam UUID profileId) {
         val profileResponse = profileService.getProfile(profileId);
-        if (profileDontExist(profileResponse)){
+        if (profileDontExist(profileResponse)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return ResponseEntity.ok(profileResponse);
     }
 
-    private ClaimDTO getClaimDto(String token){
+    private ClaimDTO getClaimDto(String token) {
         return userService.getUserFromToken(token);
     }
 
-    private boolean profileDontExist(ProfileResponseShort profileResponse){
+    private boolean profileDontExist(ProfileResponseShort profileResponse) {
         return profileResponse == null;
+    }
+
+    private UUID yourProfileId(String token) {
+        return getClaimDto(token).getProfileId();
     }
 }

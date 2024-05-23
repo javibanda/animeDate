@@ -23,9 +23,8 @@ public class Profile extends BaseProfile {
     @ManyToOne
     @JoinColumn(name = "favorite_character", nullable = false)
     private AnimeCharacter favoriteCharacter;
-    @ManyToOne
-    @JoinColumn(name = "waifu", nullable = false)
-    private AnimeCharacter waifu;
+
+    private String waifu;
     @Column(name = "birth_date", nullable = false)
     private Date birthDate;
 
