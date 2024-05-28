@@ -2,10 +2,7 @@ package org.javibanda.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.javibanda.model.dto.BooleanResponse;
-import org.javibanda.model.dto.ClaimDTO;
-import org.javibanda.model.dto.ProfileRequest;
-import org.javibanda.model.dto.ProfileResponseShort;
+import org.javibanda.model.dto.*;
 import org.javibanda.service.ProfileService;
 import org.javibanda.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -25,12 +22,12 @@ public class ProfileController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<String> save(@RequestHeader("Authorization") String token,
-                                       @RequestBody ProfileRequest request) throws ParseException {
+    public ResponseEntity<StringResponse> save(@RequestHeader("Authorization") String token,
+                                               @RequestBody ProfileRequest request) throws ParseException {
         //TODO CONTROL SI USUARIO YA ESTA REGISTRADO
 
         profileService.save(request, getClaimDto(token).getId());
-        return ResponseEntity.ok("OK");
+        return ResponseEntity.ok(new StringResponse("OK"));
     }
 
 
